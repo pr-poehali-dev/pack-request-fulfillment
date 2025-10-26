@@ -4,8 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import { useToast } from '@/hooks/use-toast';
+import Chat from '@/components/Chat';
 
 const Fulfillment = () => {
   const navigate = useNavigate();
@@ -64,7 +66,8 @@ const Fulfillment = () => {
       location: 'Москва',
       status: 'В работе',
       progress: 65,
-      dueDate: 'Сегодня, 18:00'
+      dueDate: 'Сегодня, 18:00',
+      customerName: 'ООО "Книжный мир"'
     },
     {
       id: 5,
@@ -73,7 +76,8 @@ const Fulfillment = () => {
       location: 'Москва',
       status: 'Упаковка',
       progress: 30,
-      dueDate: 'Завтра, 12:00'
+      dueDate: 'Завтра, 12:00',
+      customerName: 'ИП Соколов А.В.'
     }
   ];
 
@@ -268,6 +272,25 @@ const Fulfillment = () => {
                   </div>
 
                   <div className="flex space-x-3">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline">
+                          <Icon name="MessageCircle" size={20} className="mr-2" />
+                          Написать
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-2xl">
+                        <DialogHeader>
+                          <DialogTitle>Чат с {request.contactName}</DialogTitle>
+                        </DialogHeader>
+                        <Chat 
+                          orderId={request.id}
+                          orderTitle={request.productName}
+                          userRole="fulfillment"
+                          partnerName={request.contactName}
+                        />
+                      </DialogContent>
+                    </Dialog>
                     <Button 
                       onClick={() => handleAcceptRequest(request.id)}
                       className="flex-1"
@@ -316,15 +339,36 @@ const Fulfillment = () => {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Icon name="Clock" size={18} className="text-gray-500" />
-                        <span className="text-sm text-gray-600">Срок выполнения:</span>
-                        <span className="font-semibold">{order.dueDate}</span>
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2">
+                          <Icon name="Clock" size={18} className="text-gray-500" />
+                          <span className="text-sm text-gray-600">Срок:</span>
+                          <span className="font-semibold">{order.dueDate}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Icon name="User" size={18} className="text-gray-500" />
+                          <span className="text-sm text-gray-600">{order.customerName}</span>
+                        </div>
                       </div>
-                      <Button size="sm">
-                        <Icon name="MessageCircle" size={16} className="mr-2" />
-                        Связаться
-                      </Button>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button size="sm">
+                            <Icon name="MessageCircle" size={16} className="mr-2" />
+                            Чат
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl">
+                          <DialogHeader>
+                            <DialogTitle>Чат с {order.customerName}</DialogTitle>
+                          </DialogHeader>
+                          <Chat 
+                            orderId={order.id}
+                            orderTitle={order.productName}
+                            userRole="fulfillment"
+                            partnerName={order.customerName}
+                          />
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </div>
                 </CardContent>
