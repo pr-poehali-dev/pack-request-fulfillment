@@ -99,7 +99,7 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Icon name="Package" size={32} className="text-primary" />
-              <span className="text-2xl font-bold text-gray-900">PackHub</span>
+              <span className="text-2xl font-bold text-gray-900">DEPO44</span>
             </div>
             
             <div className="hidden md:flex items-center space-x-6">
@@ -397,7 +397,7 @@ const Index = () => {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Icon name="Package" size={28} className="text-primary" />
-                <span className="text-xl font-bold text-white">PackHub</span>
+                <span className="text-xl font-bold text-white">DEPO44</span>
               </div>
               <p className="text-sm">Платформа для быстрой упаковки товаров через фулфилмент-центры</p>
             </div>
@@ -436,7 +436,7 @@ const Index = () => {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-            © 2024 PackHub. Все права защищены.
+            © 2024 DEPO44. Все права защищены.
           </div>
         </div>
       </footer>
